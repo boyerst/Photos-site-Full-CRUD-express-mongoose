@@ -11,11 +11,10 @@ app.use(express.static('public'))
 
 // CONTROLLERS
 const photoController = require('./controllers/photoController.js')
-// the following line means for all URLs starting with /authors, 
-// use the author controller, so 
-// note: Inside of author controller, the routes will NOT 
-// include '/authors' but they URLs will look the same to the client
+const userController = require('./controllers/userController.js')
+
 app.use('/photos', photoController)
+app.use('/users', userController)
 
 
 
