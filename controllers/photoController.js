@@ -11,5 +11,10 @@ router.get('/', (req, res) => {
 
 
 
+//PHOTO NEW ROUTE: GET /photos/new 
+router.get('/new', (req, res) => {
+  res.render('photos/new.ejs')
+})
+
 
 module.exports = router  
