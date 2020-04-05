@@ -1,36 +1,39 @@
 require('dotenv').config()
 const express = require('express')
-const app = express()
+const server = express()
+const bodyParser = require('body-parser')
+const session = require('express-session')
 const PORT = process.env.PORT
 
 // CONNECT TO DB
 require('./db/db')
 
 // MIDDLEWARE
-app.use(express.static('public'))
+server.use(express.static('public'))
+server.use(bodyParser.urlencoded({ extended: false }))
 
 // CONTROLLERS
 const photoController = require('./controllers/photoController.js')
-const userController = require('./controllers/userController.js')
-
-app.use('/photos', photoController)
-app.use('/users', userController)
 
 
+server.use('/photos', photoController)
 
-app.get('/', (req, res) => {
+
+
+
+server.get('/', (req, res) => {
   res.render('home.ejs')
 })
 
 
-app.get('*', (req, res) => {
+server.get('*', (req, res) => {
   res.status(404).render('404.ejs')
 })
 
 
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   const d = new Date()
   console.log(`${d.toLocaleString()}: Server running on port ${PORT}`)
 })
