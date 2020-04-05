@@ -12,6 +12,15 @@ require('./db/db')
 server.use(express.static('public'))
 server.use(bodyParser.urlencoded({ extended: false }))
 
+// SESSIONS
+server.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false 
+}))
+
+
+
 // CONTROLLERS
 const photoController = require('./controllers/photoController.js')
 
