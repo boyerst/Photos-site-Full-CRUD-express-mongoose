@@ -75,7 +75,7 @@ router.post('/login', async (req, res, next) => {
   	const user = await User.findOne({ username: req.body.username })
   	if(!user) {
      	console.log("bad username");
-     	req.session.message = "Invalid username or password." 
+     	req.session.message = "The username or password is incorrect."
      	res.redirect('/auth/login')
     }
     else {
@@ -91,17 +91,21 @@ router.post('/login', async (req, res, next) => {
         	req.session.message = "The username or password is incorrect."
         	res.redirect('/auth/login')
       	}
-
-
-
-    // res.json(req.body)
-    	}
+    }
   } catch(err) {
     next(err)
   }
 
 })
 
+
+//LOGOUT LOGIC: GET /auth/logout
+
+router.get('/logout', async (req, res) => {
+//destroy current session (will destroy user info that is stored in respective session)
+	await req.session.destroy()
+  	res.redirect('/auth/login')
+})
 
 
 
