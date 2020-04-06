@@ -6,7 +6,12 @@ const User = require('../models/user')
 
 //REGISTRATION FORM ROUTE: GET /auth/register
 router.get('/register', (req, res) => {
-  res.render('auth/register.ejs')
+	//inform user if username taken
+	let messageToDisplay = req.session.message
+	req.session.message = ''
+  	res.render('auth/register.ejs', {
+    message: messageToDisplay
+  })
 })
 
 
@@ -29,7 +34,8 @@ router.post('/register', async (req, res, next) => {
     	//if username taken:
     	if(userWithThisUsername) {
     		console.log("username exists")
-    		res.send('Username exists -- check terminal')
+    		req.session.message = `Username ${desiredUsername} already taken.`
+      		res.redirect('/auth/register')
     	}
     	//if username available:
     	else {
