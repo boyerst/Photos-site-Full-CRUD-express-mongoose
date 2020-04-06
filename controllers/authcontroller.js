@@ -58,9 +58,48 @@ router.post('/register', async (req, res, next) => {
 
 //LOGIN ROUTE: GET /auth/login
 router.get('/login', (req, res) => {
+	let message = req.session.message
+	req.session.message = undefined
   	res.render('auth/login.ejs', {
-    	message: ''
+    	message: message
   })
+})
+
+
+//LOGIN LOGIC: POST /auth/login
+
+router.post('/login', async (req, res, next) => {
+
+  try {
+  	//check if there is a user with this username:
+  	const user = await User.findOne({ username: req.body.username })
+  	if(!user) {
+     	console.log("bad username");
+     	req.session.message = "Invalid username or password." 
+     	res.redirect('/auth/login')
+    }
+    else {
+     	if(user.password == req.body.password) {
+        	req.session.loggedIn = true
+        	req.session.userId = user._id
+        	req.session.username = user.username
+        	req.session.message = `Good to see you again, ${user.username}!`
+        	res.redirect('/')
+      	} 
+      	else {
+        	console.log("bad password");
+        	req.session.message = "The username or password is incorrect."
+        	res.redirect('/auth/login')
+      	}
+
+
+
+    // res.json(req.body)
+    	}
+  } catch(err) {
+    next(err)
+  }
+
 })
 
 
