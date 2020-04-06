@@ -48,7 +48,8 @@ router.post('/register', async (req, res, next) => {
       		//store new user uniquely (ID and username)
       		req.session.userId = createdUser._id // "more unique"
       		req.session.username = createdUser.username
-      		res.status(201).send('Successfully registered and logged in as ' + req.session.username)
+      		req.session.message = `Thanks for signing up, ${createdUser.username}`
+      		res.redirect('/')
       	}
 	} catch(error) {
 	  next(error)

@@ -31,18 +31,22 @@ server.use('/auth', authController)
 
 
 server.get('/', (req, res) => {
-  res.render('home.ejs')
+	const message = req.session.message
+  	req.session.message = ''
+  	res.render('home.ejs', {
+  		message: message
+  	})
 })
 
 
 server.get('*', (req, res) => {
-  res.status(404).render('404.ejs')
+  	res.status(404).render('404.ejs')
 })
 
 
 
 
 server.listen(PORT, () => {
-  const d = new Date()
-  console.log(`${d.toLocaleString()}: Server running on port ${PORT}`)
+  	const d = new Date()
+  	console.log(`${d.toLocaleString()}: Server running on port ${PORT}`)
 })
