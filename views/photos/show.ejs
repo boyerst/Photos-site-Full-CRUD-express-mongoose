@@ -2,12 +2,19 @@
 
 <h3>Take a closer look at this photo...</h3>
 
+ <p><%= message %></p>
+
       <img src="<%= photo.url %>">
 
       <p> Posted on <%= photo.date %>  </p>
 
       <p> <%= photo.description %> </p>
 
+      <small>
+        <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
+          <button>Delete This Photo</button>
+        </form>
+      </small>
 
 
       </form>
