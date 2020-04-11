@@ -23,22 +23,7 @@ server.use(session({
 
 
 
-server.use((req, res, next) => {
 
-
-  // adding these to res.locals allows us to make our templates
-  // more dynamic in the auth area
-  res.locals.loggedIn = req.session.loggedIn 
-  res.locals.username = req.session.username
-  // you may also want to store user id of logged in user!
-
-  // you can also use this to enhance your FLASH MESSAGING POWERS
-  res.locals.message = req.session.message
-  // as before, clear it out so it only appears once
-  req.session.message = undefined
-
-  next()
-})
 
 
 

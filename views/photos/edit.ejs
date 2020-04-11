@@ -1,10 +1,10 @@
 <%- include('../partials/header.ejs') %>
 
-  <h2>Add a Photo</h2>
+  <h2>Edit Photo</h2>
 
-  <form method="POST" action="/photos">
+    <form method="POST" action='/photos/<%= photo.id %>?_method=PUT'>
     <fieldset>
-      <label for="title">Title:</label>
+      <label for="title">Enter New Title:</label>
       <input 
         id="title" 
         type="text" 
@@ -14,29 +14,25 @@
     </fieldset>
 
     <fieldset>
-      <label for="url">Enter Photo URL:</label>
+      <label for="url">Enter New Photo URL:</label>
       <input 
         id="url" 
         type="url" 
         name="url" 
-        placeholder="Enter photo URL..." 
+        placeholder="Enter new photo URL..." 
       />
     </fieldset> 
 
     <fieldset>
-      <label for="description">Enter Photo Description:</label>
+      <label for="description">Enter New Photo Description:</label>
       <input 
         id="description" 
         type="text" 
         name="description" 
-        placeholder="Enter description..." 
+        placeholder="Enter new description..." 
       />
     </fieldset>   
-
-
-
-
-    <button>Add Photo</button>   
+    <button>Edit Photo</button>   
   </form>
 
 <%- include('../partials/footer.ejs') %> 

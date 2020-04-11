@@ -90,6 +90,32 @@ router.delete('/:id', async (req, res, next) => {
 	}
 })
 
+//EDIT ROUTE: GET /photos/:id/edit
+
+router.get('/:id/edit', async (req, res, next) => {
+	try {
+		const foundPhoto = await Photo.findById(req.params.id).populate('user')
+		res.render('photos/edit.ejs', {
+			photo: foundPhoto
+		})
+	} catch (error) {
+		next(error)
+	}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

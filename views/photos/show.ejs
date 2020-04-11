@@ -2,7 +2,7 @@
 
 <h3>Take a closer look at this photo...</h3>
 
- <p><%= message %></p>
+
 
       <img src="<%= photo.url %>">
 
@@ -15,6 +15,10 @@
           <button>Delete This Photo</button>
         </form>
       </small>
+
+      <div>
+        <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
+      </div>
 
 
       </form>
