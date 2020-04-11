@@ -27,7 +27,7 @@ router.get('/new', (req, res) => {
  		} 
  		else {
  			console.log("here is the req.session in POST/photos")
- 			console.log(req.session)
+ 			// console.log(req.session)
  			const photoToCreate = {
  				title: req.body.title,
  				url: req.body.url, 
@@ -48,7 +48,7 @@ router.get('/', async (req, res, next) => {
   	try {
     	const foundPhotos = await Photo.find().populate('user')  
     	const session = req.session
-    	console.log(foundPhotos);
+    	// console.log(foundPhotos);
     	res.render('photos/index.ejs', {
       		photos: foundPhotos, 
       		session: session
@@ -105,11 +105,24 @@ router.get('/:id/edit', async (req, res, next) => {
 
 
 
-//UPDATE PHOTOS: GET /photos/:id
+//UPDATE PHOTOS ROUTE: GET /photos/:id
 router.put('/:id', async (req, res, next) => {
 	try {
 		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, {new: true})
 		res.redirect(`/photos/`)
+	} catch (error) {
+		next(error)
+	}
+})
+
+
+//DESTROY PHOTOS ROUTE: DELETE /photos/:id
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const photoToDelete = await Photo.findByIdAndDelete(req.params.id)
+		// req.session.message = 
+		console.log("you have deleted this photo")
+		res.redirect('/photos')
 	} catch (error) {
 		next(error)
 	}
