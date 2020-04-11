@@ -105,6 +105,17 @@ router.get('/:id/edit', async (req, res, next) => {
 
 
 
+//UPDATE PHOTOS: GET /photos/:id
+router.put('/:id', async (req, res, next) => {
+	try {
+		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, {new: true})
+		res.redirect(`/photos/`)
+	} catch (error) {
+		next(error)
+	}
+})
+
+
 
 
 
