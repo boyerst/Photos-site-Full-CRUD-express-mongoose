@@ -1,15 +1,13 @@
 <%- include('../partials/header.ejs') %>
 
-<h3>Take a closer look at this photo...</h3>
+<h3> This is the personal show page for <%= username %></h3>
 
 
 
-      <img src="<%= photo.url %>">
 
+    <img src="<%= photo.url %>">
 
-      <a href="/users/<%= userId %>/user">Go To Photographer's Page</a>
-      <p> Posted on <%= photo.date %> by <%= username %> </p>
-
+            <p> Posted on <%= photo.date %> by <%= username %> </p>
 
       <p> <%= photo.description %> </p>
 
@@ -27,5 +25,4 @@
       </form>
 
 
-
-      <%- include('../partials/footer.ejs') %>
+<%- include('../partials/footer.ejs') %>

@@ -22,12 +22,10 @@ router.get('/register', (req, res) => {
 //REGISTER ROUTE: POST /auth/register
 router.post('/register', async (req, res, next) => {
 	try {
-		//create user
-		console.log(req.body);
-    	const desiredUsername = req.body.username
-    	const desiredPassword = req.body.password
+    const desiredUsername = req.body.username
+    const desiredPassword = req.body.password
     	//check if username taken
-    	const userWithThisUsername = await User.findOne({
+    const userWithThisUsername = await User.findOne({
       		username: desiredUsername
     })
     	console.log(userWithThisUsername);
@@ -35,22 +33,22 @@ router.post('/register', async (req, res, next) => {
     	if(userWithThisUsername) {
     		console.log("username exists")
     		req.session.message = `Username ${desiredUsername} already taken.`
-      		res.redirect('/auth/register')
+      	res.redirect('/auth/register')
     	}
     	//if username available:
     	else {
-      		const createdUser = await User.create({
-        		username: desiredUsername,
-        		password: desiredPassword
-      		})
-      		//log new user in:
-      		req.session.loggedIn = true
-      		//store new user uniquely (ID and username)
-      		req.session.userId = createdUser._id // "more unique"
-      		req.session.username = createdUser.username
-      		req.session.message = `Thanks for signing up, ${createdUser.username}`
-      		res.redirect('/')
-      	}
+    	 const createdUser = await User.create({
+      		username: desiredUsername,
+      		password: desiredPassword
+    		})
+    		//log new user in:
+    		req.session.loggedIn = true
+    		//store new user uniquely (ID and username)
+    		req.session.userId = createdUser._id // "more unique"
+    		req.session.username = createdUser.username
+    		req.session.message = `Thanks for signing up, ${createdUser.username}`
+    		res.redirect('/')
+    	}
 	} catch(error) {
 	  next(error)
 	}
@@ -60,7 +58,7 @@ router.post('/register', async (req, res, next) => {
 router.get('/login', (req, res) => {
 	let message = req.session.message
 	req.session.message = undefined
-  	res.render('auth/login.ejs', {
+  res.render('auth/login.ejs', {
     	message: message
   })
 })

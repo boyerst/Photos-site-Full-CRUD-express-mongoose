@@ -29,10 +29,14 @@ server.use(session({
 
 // CONTROLLERS
 const photoController = require('./controllers/photoController.js')
-const authController = require('./controllers/authController')
-
 server.use('/photos', photoController)
+const authController = require('./controllers/authController')
 server.use('/auth', authController)
+const userController = require('./controllers/userController')
+server.use('/users', userController)
+
+
+
 
 
 

@@ -64,8 +64,14 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   	try {
     	const foundPhoto = await Photo.findById(req.params.id).populate('user')
+    	const foundUser = await User.findById(req.params.id)
+    	const username = req.session.username
     	res.render('photos/show.ejs', {
-      		photo: foundPhoto
+      		photo: foundPhoto,
+      		userId: req.session.userId,
+      		username: username
+      		// user: foundUser,
+      		// username: req.session.user
     	})
  	 } catch (err) {
   		next(err)
