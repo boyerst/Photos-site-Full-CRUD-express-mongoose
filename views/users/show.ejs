@@ -4,25 +4,27 @@
 
 
 
+	<%  photos.forEach((photo) => { %>
+	<img src="<%= photo.url %>">
 
-    <img src="<%= photo.url %>">
+	<p> Posted on <%= photo.date %> by <%= username %> </p>
 
-            <p> Posted on <%= photo.date %> by <%= username %> </p>
+	<p> <%= photo.description %> </p>
 
-      <p> <%= photo.description %> </p>
+	<small>
+	
+	<form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
+	<button>Delete This Photo</button>
+	</small>
+	</form>
 
-      <small>
-        <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
-          <button>Delete This Photo</button>
-        </form>
-      </small>
-
-      <div>
-        <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
-      </div>
-
-
-      </form>
+	<form>
+	<div>
+	<a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
+	</div>
 
 
+	</form>
+
+	<%})%>
 <%- include('../partials/footer.ejs') %>

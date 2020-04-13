@@ -25,7 +25,6 @@ const photoSchema = new mongoose.Schema({
 })
 
 
-//REMINDER: 'Photo' now = name of collection
 const Photo = mongoose.model('Photo', photoSchema)
 
 

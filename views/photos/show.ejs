@@ -4,28 +4,28 @@
 
 
 
-      <img src="<%= photo.url %>">
+    <img src="<%= photo.url %>">
 
 
-      <a href="/users/<%= userId %>/user">Go To Photographer's Page</a>
-      <p> Posted on <%= photo.date %> by <%= username %> </p>
+    <a href="/users/<%= userId %>/user">Go To Photographer's Page</a>
+    <p> Posted on <%= photo.date %> by <%= username %> </p>
 
 
-      <p> <%= photo.description %> </p>
+    <p> <%= photo.description %> </p>
 
-      <small>
-        <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
-          <button>Delete This Photo</button>
-        </form>
-      </small>
+    <small>
+    <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
+    <button>Delete This Photo</button>
+    </form>
+    </small>
 
-      <div>
-        <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
-      </div>
-
-
-      </form>
+    <div>
+    <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
+    </div>
 
 
+    </form>
 
-      <%- include('../partials/footer.ejs') %>
+
+
+<%- include('../partials/footer.ejs') %>
