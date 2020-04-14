@@ -6,29 +6,26 @@
 
     <img src="<%= photo.url %>">
 
-
-    
-
     <p> Posted on <%= photo.date %> by <%= photoOwner.username %> </p>
-
 
     <p> About This Photo: <%= photo.description %> </p>
 
     <a href="/users/<%= photoOwner._id %>/user">Go To Photographer's Page</a>
-
-    <form>
-        <div>
-            <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
-        </div>
-    </form>
+   
 
 
-    <%if(userId) {%>
-    <small>
-        <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
-            <button>Delete This Photo</button>
+   <%if(user.username == photoOwner.username) {%>
+        <form>
+            <div>
+                <a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
+            </div>
         </form>
-    </small>
+
+        <small>
+            <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
+                <button>Delete This Photo</button>
+            </form>
+        </small>
     <%}%>
     
 

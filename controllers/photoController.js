@@ -72,6 +72,7 @@ router.get('/:id', async (req, res, next) => {
     	const photoOwner = await User.findById(foundPhoto.user)
     	console.log(photoOwner, "photoOwner")
     	const username = req.session.userId
+    	console.log(currentUser, "currentUser")
     	res.render('photos/show.ejs', {
       		photo: foundPhoto,
       		photoOwner: photoOwner, 
