@@ -17,10 +17,9 @@ const photoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  user: {
+  user: {                               //change this to user?????????????/
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
   }
 })
 

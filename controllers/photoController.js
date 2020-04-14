@@ -35,7 +35,9 @@ router.get('/new', (req, res) => {
  				user: req.session.userId
  			}
  			const createPhoto = await Photo.create(photoToCreate)
+ 			console.log(photoToCreate)
  			res.redirect('/photos')
+
  		}
  	} catch(err) {
  	  	next(err)
@@ -51,7 +53,8 @@ router.get('/', async (req, res, next) => {
     	// console.log(foundPhotos);
     	res.render('photos/index.ejs', {
       		photos: foundPhotos, 
-      		session: session
+      		session: session,
+
     	})
   	} catch(err) {
     	next(err)
@@ -64,14 +67,18 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   	try {
     	const foundPhoto = await Photo.findById(req.params.id).populate('user')
-    	const foundUser = await User.findById(req.params.id)
-    	const username = req.session.username
+    	console.log("foundPhoto", foundPhoto)
+    	const currentUser = await User.findById(req.session.userId)
+    	const photoOwner = await User.findById(foundPhoto.user)
+    	console.log(photoOwner, "photoOwner")
+    	const username = req.session.userId
     	res.render('photos/show.ejs', {
       		photo: foundPhoto,
+      		photoOwner: photoOwner, 
+      		user: currentUser,
       		userId: req.session.userId,
       		username: username
-      		// user: foundUser,
-      		// username: req.session.user
+      		
     	})
  	 } catch (err) {
   		next(err)

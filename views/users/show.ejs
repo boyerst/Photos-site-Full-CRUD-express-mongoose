@@ -1,30 +1,40 @@
 <%- include('../partials/header.ejs') %>
 
-<h3> This is the personal show page for <%= username %></h3>
+<h3> This is the personal show page for <%= user.username %></h3>
 
 
 
-	<%  photo.forEach((photo) => { %>
+<%  photo.forEach((photo) => { %>
 	<img src="<%= photo.url %>">
 
-	<p> Posted on <%= photo.date %> by <%= username %> </p>
+	<p> Posted on <%= photo.date %> by <%= user.username %> </p>
 
-	<p> <%= photo.description %> </p>
+	<p> About this photo: <%= photo.description %> </p>
 
-	<small>
-	
-	<form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
-	<button>Delete This Photo</button>
-	</small>
-	</form>
+	<% if (username == user.username) { %>
+		<small>
+			<form>
+				<div>
+					<a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
+				</div>
+			</form>
 
-	<form>
-	<div>
-	<a href="/photos/<%= photo.id %>/edit">Edit this Photo</a>
-	</div>
+			<form method="POST" action="/users/<%= userId %>?_method=DELETE">
+    			<button>Delete Your Account</button>
+    		</form>
+
+    	</small>
+    <% } %>
+<%})%>
+  	
 
 
-	</form>
 
-	<%})%>
+
+  	
+
+  
+
+
+
 <%- include('../partials/footer.ejs') %>

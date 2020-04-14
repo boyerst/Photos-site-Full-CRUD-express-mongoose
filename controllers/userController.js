@@ -32,11 +32,13 @@ router.get('/:id/user', async (req, res, next) => {
     const foundUser = await User.findById(req.params.id)
     const foundPhotos  = await Photo.find( {user: req.params.id} ).populate('user')
     const username = req.session.username
+    console.log(username, "this is username")
+    console.log(foundUser, "this is foundUser")
     res.render('users/show.ejs', {
       user: foundUser,
+      username: username,
       photo: foundPhotos,
-      userId: req.session.userId,
-      username: username
+      userId: req.session.userId
     })
   } catch (error) {
     next (error)
@@ -68,7 +70,19 @@ router.get('/:id/user', async (req, res, next) => {
 
 
 
+// DELETE USER ROUTE: DELETE /users/:id
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletePhotos = await Photo.remove({ user: req.params.id })
+    const deleteUser = await User.findOneAndRemove(req.params.id)
+    console.log('delete route for user');
+    res.redirect('/auth/register')
+  } catch (error) {
+    next (error)
+  }
 
+
+})
 
 
 
