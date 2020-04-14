@@ -4,19 +4,11 @@ const Photo = require('../models/photo.js')
 const User = require('../models/user')
 
 
-
-
-
-// router.get('/', (req, res) => {
-//   res.send('Photos controller working')
-// })
-
-
-
 //PHOTO NEW ROUTE: GET /photos/new 
 router.get('/new', (req, res) => {
   res.render('photos/new.ejs')
 })
+
 
 //PHOTO CREATE ROUTE: POST /photos
  router.post('/', async (req, res, next) => {
@@ -63,21 +55,19 @@ router.get('/', async (req, res, next) => {
 
 
 //PHOTO SHOW ROUTE: GET /photos/:id
-
 router.get('/:id', async (req, res, next) => {
   	try {
     	const foundPhoto = await Photo.findById(req.params.id).populate('user')
-    	console.log("foundPhoto", foundPhoto)
     	const currentUser = await User.findById(req.session.userId)
     	const photoOwner = await User.findById(foundPhoto.user)
-    	console.log(photoOwner, "photoOwner")
     	const username = req.session.userId
+    	console.log(photoOwner, "photoOwner")
+    	console.log(foundPhoto, "foundPhoto")
     	console.log(currentUser, "currentUser")
     	res.render('photos/show.ejs', {
       		photo: foundPhoto,
       		photoOwner: photoOwner, 
       		user: currentUser,
-      		userId: req.session.userId,
       		username: username
       		
     	})
@@ -88,7 +78,6 @@ router.get('/:id', async (req, res, next) => {
 
 
 //PHOTO DELETE ROUTE: DELETE /photos/:id
-
 router.delete('/:id', async (req, res, next) => {
 	try {
 		if(req.session.loggedIn == true) {
@@ -104,8 +93,8 @@ router.delete('/:id', async (req, res, next) => {
 	}
 })
 
-//EDIT ROUTE: GET /photos/:id/edit
 
+//EDIT ROUTE: GET /photos/:id/edit
 router.get('/:id/edit', async (req, res, next) => {
 	try {
 		const foundPhoto = await Photo.findById(req.params.id).populate('user')
@@ -116,7 +105,6 @@ router.get('/:id/edit', async (req, res, next) => {
 		next(error)
 	}
 })
-
 
 
 //UPDATE PHOTOS ROUTE: GET /photos/:id
@@ -141,22 +129,6 @@ router.delete('/:id', async (req, res, next) => {
 		next(error)
 	}
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

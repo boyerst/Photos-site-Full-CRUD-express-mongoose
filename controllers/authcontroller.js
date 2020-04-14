@@ -3,7 +3,6 @@ const router = express.Router()
 const User = require('../models/user')
 
 
-
 //REGISTRATION FORM ROUTE: GET /auth/register
 router.get('/register', (req, res) => {
 	//inform user if username taken
@@ -15,10 +14,6 @@ router.get('/register', (req, res) => {
 })
 
 
-
-
-
-
 //REGISTER ROUTE: POST /auth/register
 router.post('/register', async (req, res, next) => {
 	try {
@@ -28,7 +23,7 @@ router.post('/register', async (req, res, next) => {
     const userWithThisUsername = await User.findOne({
       		username: desiredUsername
     })
-    	console.log(userWithThisUsername);
+    	// console.log(userWithThisUsername);
     	//if username taken:
     	if(userWithThisUsername) {
     		console.log("username exists")
@@ -65,14 +60,13 @@ router.get('/login', (req, res) => {
 
 
 //LOGIN LOGIC: POST /auth/login
-
 router.post('/login', async (req, res, next) => {
 
   try {
   	//check if there is a user with this username:
   	const user = await User.findOne({ username: req.body.username })
   	if(!user) {
-     	console.log("bad username");
+     	// console.log("bad username");
      	req.session.message = "The username or password is incorrect."
      	res.redirect('/auth/login')
     }
@@ -85,7 +79,7 @@ router.post('/login', async (req, res, next) => {
         	res.redirect('/')
       	} 
       	else {
-        	console.log("bad password");
+        	// console.log("bad password");
         	req.session.message = "The username or password is incorrect."
         	res.redirect('/auth/login')
       	}
@@ -93,33 +87,15 @@ router.post('/login', async (req, res, next) => {
   } catch(err) {
     next(err)
   }
-
 })
 
 
 //LOGOUT LOGIC: GET /auth/logout
-
 router.get('/logout', async (req, res) => {
 //destroy current session (will destroy user info that is stored in respective session)
 	await req.session.destroy()
   	res.redirect('/auth/login')
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

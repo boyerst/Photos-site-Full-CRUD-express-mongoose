@@ -1,14 +1,15 @@
 <%- include('../partials/header.ejs') %>
 
-<h3> Take a Look at All of Our Photographers</h3>
+
+<h3> Browse Other Photographers </h3>
 
 
 
-<ul>
-<%  users.forEach((user) => { %>
-    <li> <a href="/users/<%= user.id %>/user"><%= user.username %> </a></li>
-<%  }) %>
-</ul>
+	<ul>
+		<% users.forEach((user) => { %>
+		    <li> <a href="/users/<%= user.id %>/user"><%= user.username %> </a></li>
+		<%})%>
+	</ul>
 
 
 
